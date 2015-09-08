@@ -14,14 +14,14 @@
   </div>
 
   <div class="field">
-    <%= f.label :public_key %><br />
-    <%= f.text_field :public_key, placeholder: 'Automatically Generated', :readonly => true %>
-    <%= button_tag "Generate Key", id: 'generator' %>
+    <%= label_tag :strong_password %><br />
+    <%= text_field_tag :strong_password %>
   </div>
 
   <div class="field">
-    <%= label_tag :strong_password %><br />
-    <%= text_field_tag :strong_password %>
+    <%= f.label :public_key %><br />
+    <%= f.text_field :public_key, placeholder: 'Automatically Generated', :readonly => true %>
+    <%= button_tag "Generate Key", id: 'generator' %>
   </div>
 
   <div class="field">
@@ -43,8 +43,15 @@
 <% end %>
 
 <script>
-  $("#generator").on("click", function(){
-    alert("hello");
+  $("#generator").on("click", function(event){
+    event.preventDefault();
+    var generator = generate_account("asdf");
+    var key = generator[1];
+    var address = generator[0];
+    var strong_password = $("#strong_password").val();
+    var email = $("citizen_email").val();
+    debugger;
+    create_user(email, strong_password, address, key);
   });
 </script>
 

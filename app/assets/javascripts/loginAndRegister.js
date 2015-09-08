@@ -5,7 +5,7 @@ generate_account = function(strongPass) {
       var keystore = new ethlightjs.keystore(randomSeed, strongPass);
       var addr = keystore.generateNewAddress(strongPass);
       var key = keystore.serialize;
-      return addr, key;
+      return [addr, key];
       
 }
 
