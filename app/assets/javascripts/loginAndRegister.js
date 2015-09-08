@@ -4,7 +4,7 @@ generate_account = function(strongPass) {
       var randomSeed = ethlightjs.keystore.generateRandomSeed();
       var keystore = new ethlightjs.keystore(randomSeed, strongPass);
       var addr = keystore.generateNewAddress(strongPass);
-      var key = keystore.serialize;
+      var key = keystore.serialize();
       return [addr, key];
       
 }
@@ -40,22 +40,20 @@ create_user = function(email, password, address, key){
                 console.log("error", oReq.statusText);
             }
           } 
-        }
+        };
         oReq.send(params);
-    }
+    };
 
 turnOnFaucet =  function (res) {
+
     data = JSON.parse(res);
-    createUserSimpleStorageDiv.style.display = "none";
-    var para = document.createElement("P");
-    para.setAttribute("id","walletCreateMessage");
-    var t = document.createTextNode("Confirm in your email. This is your new wallet file: \n\n" + res);
-    para.appendChild(t);
-    document.body.appendChild(para);
     console.log("wallet: " + data.encryptedWallet);
     console.log("addresses: " + JSON.parse(data.encryptedWallet).addresses);
+
     var faucetAddr = JSON.parse(data.encryptedWallet).addresses;
     var oReq = new XMLHttpRequest();
+    
+    var apiURL = "http://hacknet.blockapps.net";
     oReq.open("POST", apiURL + "/eth/v1.0/faucet", true);
     var params = "address=" + encodeURIComponent(faucetAddr);
     oReq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -69,3 +67,6 @@ turnOnFaucet =  function (res) {
     console.log("sending faucet request");
     oReq.send(params);
     console.log("faucet request sent");
+
+    return JSON.parse(data.encryptedWallet).addresses;
+}
