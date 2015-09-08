@@ -34,7 +34,7 @@ create_user = function(email, password, address, key){
           if (oReq.readyState == 4) {
             if (oReq.status === 200) {
                 console.log(oReq.responseText);
-                $scope.turn_on_faucet(oReq.responseText);
+                turnOnFaucet(oReq.responseText);
                 //callback(oReq.responseText);
              } else {
                 console.log("error", oReq.statusText);
@@ -43,3 +43,29 @@ create_user = function(email, password, address, key){
         }
         oReq.send(params);
     }
+
+turnOnFaucet =  function (res) {
+    data = JSON.parse(res);
+    createUserSimpleStorageDiv.style.display = "none";
+    var para = document.createElement("P");
+    para.setAttribute("id","walletCreateMessage");
+    var t = document.createTextNode("Confirm in your email. This is your new wallet file: \n\n" + res);
+    para.appendChild(t);
+    document.body.appendChild(para);
+    console.log("wallet: " + data.encryptedWallet);
+    console.log("addresses: " + JSON.parse(data.encryptedWallet).addresses);
+    var faucetAddr = JSON.parse(data.encryptedWallet).addresses;
+    var oReq = new XMLHttpRequest();
+    oReq.open("POST", apiURL + "/eth/v1.0/faucet", true);
+    var params = "address=" + encodeURIComponent(faucetAddr);
+    oReq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    oReq.onload = function () {
+      if (oReq.readyState == 4 && oReq.status == 200) {
+        console.log("faucet should have worked");
+      } else { 
+        console.log("error");
+      }
+    }
+    console.log("sending faucet request");
+    oReq.send(params);
+    console.log("faucet request sent");
