@@ -1,0 +1,8 @@
+<h1> Welcome Citizen</h1>
+
+<%= link_to destroy_citizen_session_path, :method => :delete do %> Sign Out <% end %>
+<br>
+
+<h4><%= current_citizen.name %></h4>
+<h4><%= current_citizen.email %></h4>
+<h4><%= current_citizen.public_key %></h4>
