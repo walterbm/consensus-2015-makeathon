@@ -68,5 +68,4 @@ turnOnFaucet =  function (res) {
     oReq.send(params);
     console.log("faucet request sent");
 
-    return JSON.parse(data.encryptedWallet).addresses;
 }

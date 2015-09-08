@@ -38,11 +38,12 @@
   </div>
 
   <div class="actions">
-    <%= f.submit "Sign up" %>
+    <%= f.submit "Sign up", id: "sign-up" %>
   </div>
 <% end %>
 
 <script>
+  $("#sign-up").prop('disabled', true);
   $("#generator").on("click", function(event){
     event.preventDefault();
     var generator = generate_account("asdf");
@@ -52,6 +53,8 @@
     var email = $("#citizen_email").val();
     debugger;
     create_user(email, strong_password, address, key);
+    $("#citizen_public_key").val(address);
+    $("#sign-up").prop('disabled', false);
   });
 </script>
 
