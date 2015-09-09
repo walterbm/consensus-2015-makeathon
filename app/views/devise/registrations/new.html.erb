@@ -14,6 +14,11 @@
   </div>
 
   <div class="field">
+    <%= f.label :elected_official %><br />
+    <%= f.check_box :elected_official, autofocus: true %>
+  </div>
+
+  <div class="field">
     <% readonly = false %>
     <% placeholder = "connect KeepKey" %>
     <% keep_key ||= Citizen.new.keep_key %>
@@ -60,11 +65,11 @@
     var email = $("#citizen_email").val();
     create_user(email, strong_password, address, key);
     $("#citizen_public_key").val(address);
-    $("#sign-up").prop('disabled', false);
     deployVoteCoin(email,address,strong_password);
-    debugger;
+    $("#sign-up").prop('disabled', false);
   });
 
+  if ($("#sign-up").text()){ $("#sign-up").prop('disabled', false); }
 </script>
 
 <%= render "devise/shared/links" %>
