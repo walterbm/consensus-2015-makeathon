@@ -3,6 +3,19 @@
 <%= link_to destroy_citizen_session_path, :method => :delete do %> Sign Out <% end %>
 <br>
 
-<h4><%= current_citizen.name %></h4>
-<h4><%= current_citizen.email %></h4>
-<h4><%= current_citizen.public_key %></h4>
+Name: <h4><%= current_citizen.name %></h4>
+E-mail: <h4><%= current_citizen.email %></h4>
+Address: <h4><%= current_citizen.public_key %></h4>
+
+Balance <h4 id="balance"></h4>
+
+<p>Enter your password to Vote: </p>
+<%= text_field_tag 'strong_password' %>
+<%= button_tag "Vote to Approve" %> | <%= button_tag "Vote to Reject" %>
+
+<script>
+$.get("http://hacknet.blockapps.net/eth/v1.0/account?address=<%= current_citizen.public_key%>", function( data ) {
+  $( "#balance" ).text( data[0].balance +"  ether");
+});
+
+</script>
