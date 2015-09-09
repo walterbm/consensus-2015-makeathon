@@ -3,4 +3,7 @@ class Citizen < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  include KeepKey::InstanceMethods
+
 end
