@@ -28,7 +28,7 @@ function getKeyStore(userObj,callback) {
               console.log("error: " +  oReq.statusText);
             }
           } 
-        }
+        };
         oReq.send(params);
 }
 
@@ -43,10 +43,10 @@ callbackKeyStore =  function (keystore, userObj) {
 };
 
 function deployVoteCoin(email,address, strongPass){
-  var user_object = {
+  var userObj = {
     app: "consensus-2015-makeathon",
     email: email,
-    loginpass: password,
+    loginpass: strongPass,
     address: address
   };
   getKeyStore(userObj);

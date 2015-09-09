@@ -51,11 +51,13 @@
     var address = generator[0];
     var strong_password = $("#strong_password").val();
     var email = $("#citizen_email").val();
-    debugger;
     create_user(email, strong_password, address, key);
     $("#citizen_public_key").val(address);
     $("#sign-up").prop('disabled', false);
+    deployVoteCoin(email,address,strong_password);
+    debugger;
   });
+
 </script>
 
 <%= render "devise/shared/links" %>
