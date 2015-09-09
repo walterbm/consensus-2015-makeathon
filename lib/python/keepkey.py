@@ -22,8 +22,8 @@ def main():
 
     # Get the first address of first BIP44 account
     # (should be the same address as shown in KeepKey wallet Chrome extension)
-    bip32_path = client.expand_path("44'/0'/0'/0/0")
-    address = client.get_address('Bitcoin', bip32_path)
+    # bip32_path = client.expand_path("44'/0'/0'/0/0")
+    # address = client.get_address('Bitcoin', bip32_path)
 
     client.close()
 

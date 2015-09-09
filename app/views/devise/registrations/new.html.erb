@@ -14,8 +14,15 @@
   </div>
 
   <div class="field">
+    <% readonly = false %>
+    <% placeholder = "connect KeepKey" %>
+    <% keep_key ||= Citizen.new.keep_key %>
+    <% if keep_key %>
+      <p><strong>KeepKey detected!</strong></p>
+      <% readonly = true %>
+    <% end %>
     <%= label_tag :strong_password %><br />
-    <%= text_field_tag :strong_password %>
+    <%= text_field_tag :strong_password, keep_key, placeholder: placeholder, readonly: readonly %>
   </div>
 
   <div class="field">

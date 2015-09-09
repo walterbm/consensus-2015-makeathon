@@ -1,0 +1,24 @@
+<h1> Welcome Citizen</h1>
+
+<%= link_to destroy_citizen_session_path, :method => :delete do %> Sign Out <% end %>
+<br>
+
+Name: <h4><%= current_citizen.name %></h4>
+E-mail: <h4><%= current_citizen.email %></h4>
+Elected Official? <h4><%= current_citizen.elected_official? %></h4>
+Address: <h4><%= current_citizen.public_key %></h4>
+Balance <h4 id="balance"></h4>
+
+<p>Enter your password to Vote: </p>
+<% keep_key ||= current_citizen.keep_key %>
+<% if keep_key %>
+  <p><strong>KeepKey detected!</strong></p>
+<% end %>
+<%= text_field_tag 'strong_password', keep_key  %>
+<%= button_tag "Vote to Approve" %> | <%= button_tag "Vote to Reject" %>
+
+<script>
+$.get("http://hacknet.blockapps.net/eth/v1.0/account?address=<%= current_citizen.public_key%>", function( data ) {
+  $( "#balance" ).text( data[0].balance +"  ether");
+});
+</script>

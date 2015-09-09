@@ -20,6 +20,15 @@
     <p class="alert"><%= alert %></p> 
   <% end %>
 
+  <% if citizen_signed_in? %>
+    <h3>hello <%= current_citizen.name %>!<h3>
+    <%= link_to "Profile", citizen_path(current_citizen) %> | <%= link_to destroy_citizen_session_path, :method => :delete do %> Sign Out <% end %>
+    | <%= link_to "Home", root_path %> 
+  <% else %>
+    <%= link_to "Sign In", new_citizen_session_path %> | <%= link_to "Register", new_citizen_registration_path %>
+  <% end %>
+  
+
   <%= yield %>
 
 

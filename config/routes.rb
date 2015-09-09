@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :officials
   devise_for :citizens
-  resources :officials
   resources :citizens
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -9,9 +7,6 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'welcome#index'
 
-  get 'citizens/' => 'citizen#index', as: :citizen_root
-
-  get 'officials/' => 'official#index', as: :official_root
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
