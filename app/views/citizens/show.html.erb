@@ -6,6 +6,12 @@ Elected Official? <h4><%= current_citizen.elected_official? %></h4>
 Address: <h4><%= current_citizen.public_key %></h4>
 Balance <h4 id="balance"></h4>
 
+
+Proposal: <%= current_citizen.proposals.first.name %>
+<% if current_citizen.proposals.first %>
+<div id="piechart" style="width: 900px; height: 500px;"></div>
+<% end %>
+
 <p>Enter your password to Vote: </p>
 <% keep_key ||= current_citizen.keep_key %>
 <% if keep_key %>
@@ -13,10 +19,31 @@ Balance <h4 id="balance"></h4>
 <% end %>
 <%= text_field_tag 'strong_password', keep_key  %>
 <br>
+
 <%= button_tag "Vote to Approve" %> | <%= button_tag "Vote to Reject" %>
 
 <script>
-$.get("http://hacknet.blockapps.net/eth/v1.0/account?address=<%= current_citizen.public_key%>", function( data ) {
-  $( "#balance" ).text( data[0].balance +"  ether");
-});
+  $.get("http://hacknet.blockapps.net/eth/v1.0/account?address=<%= current_citizen.public_key%>", function( data ) {
+    $( "#balance" ).text( data[0].balance +"  ether");
+  });
+
+  google.load("visualization", "1", {packages:["corechart"]});
+  google.setOnLoadCallback(drawChart);
+  function drawChart() {
+
+    var data = google.visualization.arrayToDataTable([
+      ['Category', 'Amount Allocated'],
+      <% current_citizen.proposals.first.budget.each do |key, value| %>
+        ['<%= key %>', <%= value %>],
+      <% end %>
+    ]);
+
+    var options = {
+      title: '<%= current_citizen.proposals.first.name %>'
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+    chart.draw(data, options);
+  }
 </script>
