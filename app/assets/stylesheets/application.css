@@ -14,3 +14,7 @@
  *= require bootstrap.min
  *= require_self
  */
+
+ .alert{
+  margin: 0;
+ }

@@ -13,21 +13,43 @@
 <body>
 
   <% if notice %>
-    <p class="notice"><%= notice %></p>
+    <div class="alert alert-dismissible alert-info"><%= notice %></div>
   <% end %>
 
-  <% if notice %>
-    <p class="alert"><%= alert %></p> 
+  <% if alert %>
+    <div class="alert alert-dismissible alert-info"><%= alert %></div> 
   <% end %>
 
-  <% if citizen_signed_in? %>
-    <h3>hello <%= current_citizen.name %>!<h3>
-    <%= link_to "Profile", citizen_path(current_citizen) %> | <%= link_to destroy_citizen_session_path, :method => :delete do %> Sign Out <% end %>
-    | <%= link_to "Home", root_path %> 
-  <% else %>
-    <%= link_to "Sign In", new_citizen_session_path %> | <%= link_to "Register", new_citizen_registration_path %>
-  <% end %>
-  
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Akilaes</a>
+      </div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <% if citizen_signed_in? %>
+            <li><%= link_to "Profile", citizen_path(current_citizen) %></li>
+            <li><%= link_to "Home", root_path %></li>
+            <li><%= link_to destroy_citizen_session_path, :method => :delete do %> Sign Out <% end %></li>
+          <% else %>
+            <li><%= link_to "Sign In", new_citizen_session_path %></li>
+            <li><%= link_to "Register", new_citizen_registration_path %></li>
+          <% end %>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <% if citizen_signed_in? %>
+            <li><a>hello <%= current_citizen.name %>!</a></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
   <%= yield %>
 
