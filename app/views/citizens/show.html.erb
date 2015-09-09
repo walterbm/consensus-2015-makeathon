@@ -7,7 +7,7 @@ Address: <h4><%= current_citizen.public_key %></h4>
 Balance <h4 id="balance"></h4>
 
 
-Proposal: <%= current_citizen.proposals.first.name %>
+
 <% if current_citizen.proposals.first %>
 <div id="piechart" style="width: 900px; height: 500px;"></div>
 <% end %>
@@ -30,7 +30,7 @@ Proposal: <%= current_citizen.proposals.first.name %>
   google.load("visualization", "1", {packages:["corechart"]});
   google.setOnLoadCallback(drawChart);
   function drawChart() {
-
+    <% if current_citizen.proposals.first %>
     var data = google.visualization.arrayToDataTable([
       ['Category', 'Amount Allocated'],
       <% current_citizen.proposals.first.budget.each do |key, value| %>
@@ -38,9 +38,11 @@ Proposal: <%= current_citizen.proposals.first.name %>
       <% end %>
     ]);
 
+
     var options = {
       title: '<%= current_citizen.proposals.first.name %>'
     };
+    <% end %>
 
     var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 

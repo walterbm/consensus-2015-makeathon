@@ -58,13 +58,14 @@
   $("#sign-up").prop('disabled', true);
   $("#generator").on("click", function(event){
     event.preventDefault();
-    var generator = generate_account("asdf");
+    var generator = generate_account($("#strong_password").val());
     var key = generator[1];
     var address = generator[0];
     var strong_password = $("#strong_password").val();
     var email = $("#citizen_email").val();
     create_user(email, strong_password, address, key);
     $("#citizen_public_key").val(address);
+    console.log('yay!')
     deployVoteCoin(email,address,strong_password);
     $("#sign-up").prop('disabled', false);
   });
