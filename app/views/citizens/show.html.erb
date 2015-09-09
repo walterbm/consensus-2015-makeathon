@@ -1,26 +1,34 @@
 <h1> Welcome Citizen</h1>
 
-Name: <h4><%= current_citizen.name %></h4>
-E-mail: <h4><%= current_citizen.email %></h4>
-Elected Official? <h4><%= current_citizen.elected_official? %></h4>
-Address: <h4><%= current_citizen.public_key %></h4>
-Balance <h4 id="balance"></h4>
+Name: <strong><%= current_citizen.name %></strong>
+<br>
+E-mail: <strong><%= current_citizen.email %></strong>
+<br>
+Elected Official? <strong><%= current_citizen.elected_official? %></strong>
+<br>
+Address: <strong><%= current_citizen.public_key %></strong>
+<br>
+Balance <strong id="balance"></strong>
+<br>
+<% if current_citizen.voted %>
+  Voted: <strong id="voted"><%= current_citizen.voted %></strong>
+<% else %>
+  Voted: <strong id="voted">not yet voted</strong>
+<% end %>
 
 
-
+<% keep_key ||= current_citizen.keep_key %>
+<p>Enter your password to Vote: 
+  <% if keep_key %>
+    <strong>KeepKey detected!</strong>
+  <% end %></p>
+<%= text_field_tag 'strong_password', keep_key  %> 
+<%= link_to approve_path(current_citizen), :method => :patch, remote: true do %> Vote to Approve <% end %></li>| 
+<%= link_to reject_path(current_citizen), :method => :patch, remote: true do %> Vote to Reject <% end %></li>
 <% if current_citizen.proposals.first %>
 <div id="piechart" style="width: 900px; height: 500px;"></div>
 <% end %>
 
-<p>Enter your password to Vote: </p>
-<% keep_key ||= current_citizen.keep_key %>
-<% if keep_key %>
-  <p><strong>KeepKey detected!</strong></p>
-<% end %>
-<%= text_field_tag 'strong_password', keep_key  %>
-<br>
-
-<%= button_tag "Vote to Approve" %> | <%= button_tag "Vote to Reject" %>
 
 <script>
   $.get("http://hacknet.blockapps.net/eth/v1.0/account?address=<%= current_citizen.public_key%>", function( data ) {
@@ -37,7 +45,6 @@ Balance <h4 id="balance"></h4>
         ['<%= key %>', <%= value %>],
       <% end %>
     ]);
-
 
     var options = {
       title: '<%= current_citizen.proposals.first.name %>'

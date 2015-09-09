@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'welcome#index'
 
+  patch 'citizen/:id/accept' => 'citizens#approve', as: :approve
+  patch 'citizen/:id/reject' => 'citizens#reject', as: :reject
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
