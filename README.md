@@ -19,10 +19,10 @@ Lastly, once a consensus is reached, the funds are either released automatically
 ![Mock-up of project on a desktop ](images/mockup-desktop.png "Mock-up of project on a desktop.")
 Mock-up of what the application could look like on a laptop browser.
 
-![Mock-up of project on a mobile ](screenshots/mockup-mobile.png "Mock-up of project on a mobile.")
+![Mock-up of project on a mobile ](images/mockup-mobile.png "Mock-up of project on a mobile.")
 Mock-up of what the application could look like on mobile.
 
-![Screen shot of actual live prototype ](screenshots/prototype-screenshot.png "Actual screen from live prototype.")
+![Screen shot of actual live prototype ](images/prototype-screenshot.png "Actual screen from live prototype.")
 Actual screen from live prototype showing the voting process and the integration with a hardware cryptocurrency wallet.  
 
 ## Features
